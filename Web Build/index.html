@@ -91,11 +91,12 @@
       //CDA: Getting Data From Unity
       function GetDataFromUnity( arg )
       {
-		  console.log("called ", arg);
-		  if (window && window.ReactNativeWebView) {
-			window.ReactNativeWebView.postMessage(arg)
-		  }
-          alert( Pointer_stringify(arg) );
+		   console.log("called ", arg);
+       //send the data to react app
+        if (window && window.ReactNativeWebView) {
+          window.ReactNativeWebView.postMessage(arg)
+        }
+        //alert( Pointer_stringify(arg) );
       }
 
 
