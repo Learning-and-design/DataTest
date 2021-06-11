@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas"></canvas>
+      <canvas id="unity-canvas" width=960 height=600></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -25,11 +25,6 @@
         <div id="unity-build-title">Kreedo Data Test</div>
       </div>
     </div>
-
-    <button onclick="SendDataToUnity(this)" data-string="yourstringhere">Click me</button>
-
-
-
     <script>
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/Web Build.loader.js";
@@ -50,11 +45,17 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var mobileWarning = document.querySelector("#unity-mobile-warning");
 
-      //CDA: gameInstance variable which will be used to call Unity Instance
-      var gameInstance;
+      // By default Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         container.className = "unity-mobile";
+        // Avoid draining fillrate performance on mobile devices,
+        // and default/override low DPI mode on mobile browsers.
         config.devicePixelRatio = 1;
         mobileWarning.style.display = "block";
         setTimeout(() => {
@@ -72,10 +73,6 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
-          //CDA: Assigning gameInstance variable
-          gameInstance = unityInstance;
-          //CDA: Calling the function to send data to Unity
-          SendDataToUnity(messageData);
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
@@ -85,39 +82,6 @@
         });
       };
       document.body.appendChild(script);
-
-
-
-      //CDA: Getting Data From Unity
-  //    function GetDataFromUnity( arg )
-  //    {
-	//	  console.log("called ", arg);
-	//	  if (window && window.ReactNativeWebView) {
-	//		window.ReactNativeWebView.postMessage(arg)
-	//	  }
-  //        alert( Pointer_stringify(arg) );
-  //    }
-
-
-      // Added by UBS team
-	     var messageData;
-
-
-
-      //CDA: Sending data to Unity
-      function SendDataToUnity(data) {
-
-        // Don't change this line.
-        gameInstance.SendMessage("GetData","ReceiveData",data);
-        }
-
-        function handleEvent(message) {
-          messageData = JSON.stringify(message.data);
-		 // SendDataToUnity(message.data);
-      }
-
-      document.addEventListener("message", handleEvent);
-
     </script>
   </body>
 </html>

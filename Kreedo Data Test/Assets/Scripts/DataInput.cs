@@ -41,7 +41,7 @@ public class DataInput : MonoBehaviour
     void Start()
     {
 
-        GetDataFromUnity("Unity Calling");
+        // GetDataFromUnity("Unity Calling");
         
             
 
