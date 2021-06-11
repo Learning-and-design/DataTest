@@ -87,18 +87,6 @@
       document.body.appendChild(script);
 
 
-
-      //CDA: Getting Data From Unity
-  //    function GetDataFromUnity( arg )
-  //    {
-	//	  console.log("called ", arg);
-	//	  if (window && window.ReactNativeWebView) {
-	//		window.ReactNativeWebView.postMessage(arg)
-	//	  }
-  //        alert( Pointer_stringify(arg) );
-  //    }
-
-
       // Added by UBS team
 	     var messageData;
 
@@ -106,15 +94,13 @@
 
       //CDA: Sending data to Unity
       function SendDataToUnity(data) {
-
         // Don't change this line.
         gameInstance.SendMessage("GetData","ReceiveData",data);
         }
 
         function handleEvent(message) {
           messageData = JSON.stringify(message.data);
-		 // SendDataToUnity(message.data);
-      }
+		  }
 
       document.addEventListener("message", handleEvent);
 

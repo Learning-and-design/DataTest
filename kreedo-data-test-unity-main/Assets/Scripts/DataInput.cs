@@ -41,7 +41,7 @@ public class DataInput : MonoBehaviour
     void Start()
     {
 
-        // GetDataFromUnity("Unity Calling");
+        //GetDataFromUnity("Unity Calling");
         
             
 
@@ -76,8 +76,14 @@ public class DataInput : MonoBehaviour
         levtime.text = Levtime;
         levcount.text = Levcount;
         levcomplete.text = Levcompleted;
-
     }
+
+    public void SendData(string str)
+    {
+        GetDataFromUnity(str);
+    }
+
+
 
     
 }
